@@ -1,0 +1,257 @@
+
+* {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+	list-style: none; 
+	outline: none;
+}
+table{ border-collapse:collapse; }
+textarea{ overflow: auto; resize:none;}
+img {
+	border:none;
+   /* max-width:100%;*/
+   vertical-align:bottom;
+}
+body {
+	width: 100%;
+	font-family:"SimSun";
+	font-size:16px;
+	color:#464646;
+	background:#ffffff;
+}
+
+button{border:none; cursor:pointer;}
+em,b,i,th,h4,h3,h2{
+	font-style: normal;
+	font-weight: normal;
+}
+input{ 
+	border:none; 
+	border:1px solid #bdbdbd; 
+	height:35px; 
+	line-height:35px; 
+	text-indent:5px; 
+	border-radius:3px; 
+	width:65%;
+}
+input[type="radio"]{ 
+	width:10%;
+	vertical-align:middle;
+}
+select{
+	border:1px solid #bdbdbd; 
+	height:35px; 
+	line-height:35px; 
+	text-indent:5px; 
+	border-radius:3px; 
+	width:30%;
+	margin-right:3%;
+}
+a {
+	color:#464646;
+	text-decoration:none;
+	outline:none;
+}
+.fl { float: left;}
+.fr { float:right;}
+.hide{ display:none;}
+.show{ display:block;}
+
+/*clearfix*/
+.clearfix:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%}
+.clearfix { display: block; zoom: 1; }
+
+
+#header{
+	width:100%;
+}
+#header .nav{
+	margin:0px 5%;
+	height:100px;
+	line-height:100px;
+}
+#header .nav .logo img{
+	vertical-align:middle;
+	margin-left:50px;
+}
+#header .nav .menu {
+	width:50%;
+	font-size:24px;
+}
+#header .nav .menu ul{
+	width:100%;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+}
+#header .nav .menu ul li{
+	width:33%;
+	float:left;
+	text-align:center;
+}
+#header .nav .menu ul li.hover a{
+	color:#a6a6a6;
+}
+#main{
+	width:100%;
+	position:relative;
+}
+#main .banner{
+	width:100%;
+}
+#main .banner img{
+	width:100%;
+}
+#main .project{
+	margin:0px 5%;
+}
+#main .project .project_tit{
+	text-align:center;
+	margin:50px 0px;
+}
+#main .project .project_det p{
+	text-indent:2em;
+	font-size:32px;
+	line-height:40px;
+}
+#main .project .project_more{
+	text-align:center;
+	margin:50px 0px;
+}
+#main .links {
+	margin:0px 5%;
+	height:200px;
+}
+#main .links ul{
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+#main .links ul li{
+	width:20%;
+	float:left;
+	text-align:center;
+}
+/*#main .about{
+	margin:50px 5%;
+}*/
+#main .about {
+    width: 100%;
+    margin-top: 50px;
+    padding-left: 9%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: inline-block;
+    background: #2e3d55;
+    color: #fff;
+    
+}
+.about_code{
+	width:10%;
+}
+.about_det{
+	width:90%;
+}
+.about_det ul{
+	width:100%;
+}
+.about_det ul li{
+	width:50%;
+	float:left;
+	text-align:left;
+	height:55px;
+	line-height:55px;
+	font-size:25px;
+}
+
+.about_det .icon{
+	width:30px;
+	height:30px;
+	display:inline-block;
+	vertical-align: -7px;
+	margin-right: 15px;
+}
+.about_det .icon01{
+	background: url("../images/icon.png") 0px 0px;
+}
+.about_det .icon02{
+	background: url("../images/icon.png") 30px 0px;
+}
+.about_det .icon03{
+	background: url("../images/icon.png") 0px 30px;
+}
+.about_det .icon04{
+	background: url("../images/icon.png") 30px 30px ;
+}
+
+#dialog{
+	position:absolute;
+	width:100%;
+	height: 250%;
+	max-height: 1900px;
+	right: 0px;
+	top: 0px;
+	background-color:rgba(0,0,0,0.6);
+	z-index: 99;
+}
+#dialog .apply{
+	margin: 20px auto 0px;
+	position: relative;
+	width:700px;
+	height:500px;
+	background:#ffffff;
+}
+.apply h3{
+	width:100%;
+	background:#258ae7;
+	color:#fff;
+	font-size:20px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+}
+.apply_con{
+	margin:30px 0px; 
+	width:100%;
+	display: inline-block;
+}
+.apply_con label{
+	color:#606060;
+	width:35%;
+	float:left;
+	text-align:center;
+	height:50px;
+	line-height:50px;
+}
+.apply_con label i{
+	color:#ff5c5c;
+	margin:0px 15px 0px 40px;
+}
+.apply_con .apply_in{
+	width:65%;
+	float:left;
+	text-align:left;
+	height:50px;
+	line-height:50px;
+}
+.apply_con .apply_in i{
+	color:#ff5c5c;
+	margin-left: 20px;
+}
+.btn02{
+	width:100%;
+	text-align:center;
+}
+.btn02 button{
+	width:120px;
+	height:34px;
+	margin:0px 10px;
+	line-height:34px;
+	background:#ff6c60;
+	border-radius:10px;
+	color:#fff;
+	font-size:16px;
+}

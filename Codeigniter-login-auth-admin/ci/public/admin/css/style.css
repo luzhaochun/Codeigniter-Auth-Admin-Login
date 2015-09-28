@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2015-9-2, 15:21:32
+    Author     : timlu
+*/
+
+.error{
+    color: red;
+    font-size: 4px;
+}
+
+.login_error{
+    padding-left: 90px;
+    color: red;
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+.ui-widget-overlay {
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.msg {
+    padding: 15px 25px 15px 60px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.msg.warning {border:2px solid #FFC237; background-color:#FFEAA8; }
+.msg.warning a {color:#df0000;} .msg.warning a:hover, .msg.warning a:active, .msg.warning a:focus {color:#303030;}
+.msg.info {border:2px solid #418ACC; background-color:#D0E4F4;}
+.msg.done {background:url("images/accept.png") 10px 50% no-repeat;border:2px solid #99C600; background-color:#EFFFB9;}
+.msg.error {background:url("images/exclamation.png") 10px 50% no-repeat;border:2px solid #EB5339; background-color:#FCCAC2;}
+
+.expander {
+    background-image: url("images/toggle-collapse-dark.png");
+}
+
+.expander {
+    background-image: url("images/toggle-collapse-dark.png");
+}
+.collapser {
+    background-image: url("images/toggle-expand-dark.png");
+}
