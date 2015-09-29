@@ -181,7 +181,11 @@ class auth_rule extends CI_Model {
     protected function getUserInfo($uid) {
         static $userinfo = array();
         if (!isset($userinfo[$uid])) {
-            $userinfo[$uid] = M()->where(array('uid' => $uid))->table($this->_config['AUTH_USER'])->find();
+            $this->db->select('*');
+            $this->db->from('user');
+            $this->db->where('id',$uid);
+            $query->db->get();
+            $userinfo[$uid] = $query->row_array();
         }
         return $userinfo[$uid];
     }
