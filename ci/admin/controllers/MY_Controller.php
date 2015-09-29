@@ -15,11 +15,27 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('user');
+        $this->load->helper('url');
         if (!$this->user->is_logged_in()) {
             redirect('Login');
         }
-        $this->load->helper('url');
+        $this->load->model('auth_rule');
+        
         $this->load->library('Layout', array('main'));
+        //check auth
+        if (!in_array(strtolower($this->router->class . '/' . $this->router->method), $this->config->item('not_all_auth_check'))) {
+            if (!$this->checkRule(strtolower($this->router->class . '/' . $this->router->method), $this->user->check_login())) {
+                echo '未授权访问！';exit;
+            }
+        }
+    }
+    
+    public function checkRule($rule, $uid, $type=1, $mode='url') {
+        static $Auth = null;
+        if(!$this->auth_rule->check($rule, $uid, $type, $mode)) {
+            return false;
+        }
+        return true;
     }
 
 }

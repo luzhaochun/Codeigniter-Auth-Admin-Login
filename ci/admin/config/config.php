@@ -507,3 +507,5 @@ $config['auth_config'] = ["AUTH_ON" => true,
     'AUTH_GROUP_ACCESS' => 'auth_group_access', // 用户-用户组关系表
     'AUTH_RULE' => 'auth_rule', // 权限规则表
     'AUTH_USER' => 'user'];
+
+$config['not_all_auth_check']  = ['login/index', 'login/checklogin','Login/logout'];

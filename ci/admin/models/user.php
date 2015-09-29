@@ -72,6 +72,9 @@ class user extends CI_Model{
         }
     }
     
+    function check_login(){
+        return $this->session->userdata('user')['id'];
+    }
     function remove_pass() {
         $this->session->unset_userdata('user');
         $this->session->unset_userdata('logged_in','');
@@ -114,5 +117,7 @@ class user extends CI_Model{
             return array();
         }
     }
+    
+    
     
 }
