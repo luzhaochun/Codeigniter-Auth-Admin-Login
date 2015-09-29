@@ -248,4 +248,7 @@ class auth_rule extends CI_Model {
         return $query->row_array();
     }
 
+    public function getnerate_menu($rulelist = []){
+        
+    }
 }

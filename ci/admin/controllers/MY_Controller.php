@@ -24,16 +24,24 @@ class MY_Controller extends CI_Controller {
         //check auth
         if (!in_array(strtolower($this->router->class . '/' . $this->router->method), $this->config->item('not_all_auth_check'))) {
             if (!$this->checkRule(strtolower($this->router->class . '/' . $this->router->method), $this->user->check_login())) {
-                echo '未授权访问！';exit;
+                echo '未授权访问！';
+                exit;
             }
         }
         //generate left navigation
-        $this->data['list'] = '11';
+        $allRuleList = $this->auth_rule->get_all_rule();
+        foreach ($allRuleList as $k => $v) {
+            if (!$this->checkRule($v['name'], $this->user->check_login())) {
+                unset($allRuleList[$k]);
+            }
+        }
+        $this->data['menuList'] = $this->auth_rule->buildAllRuleToTree($allRuleList);
+        
     }
-    
-    public function checkRule($rule, $uid, $type=1, $mode='url') {
+
+    public function checkRule($rule, $uid, $type = 1, $mode = 'url') {
         static $Auth = null;
-        if(!$this->auth_rule->check($rule, $uid, $type, $mode)) {
+        if (!$this->auth_rule->check($rule, $uid, $type, $mode)) {
             return false;
         }
         return true;
