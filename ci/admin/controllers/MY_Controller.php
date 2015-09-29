@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
 
 class MY_Controller extends CI_Controller {
 
-    public $data = [];
+    protected $data = [];
 
     function __construct() {
         parent::__construct();

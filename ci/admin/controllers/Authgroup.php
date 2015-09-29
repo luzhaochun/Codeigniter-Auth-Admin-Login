@@ -25,7 +25,6 @@ class Authgroup extends MY_Controller {
     }
 
     public function index() {
-        
         $this->load->model('auth_group');
         $this->data['list'] = $this->auth_group->get_group_list();
         $this->data['msg'] = '';
