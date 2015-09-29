@@ -146,8 +146,8 @@ class auth_rule extends CI_Model {
         $this->db->select('condition,name');
         $this->db->from('auth_rule');
         $this->db->where_in('id', $ids);
-        $this->db->where('type',$type);
-        $this->db->where('status',1);
+        $this->db->where('type', $type);
+        $this->db->where('status', 1);
         $query = $this->db->get();
         $rules = $query->result_array();
         //循环规则，判断结果。
@@ -176,27 +176,20 @@ class auth_rule extends CI_Model {
     }
 
     /**
-     * 获得用户资料,根据自己的情况读取数据库
+     * 获得用户资料,根据自己的情况读取数据库ss
      */
     protected function getUserInfo($uid) {
         static $userinfo = array();
         if (!isset($userinfo[$uid])) {
             $this->db->select('*');
             $this->db->from('user');
-            $this->db->where('id',$uid);
+            $this->db->where('id', $uid);
             $query->db->get();
             $userinfo[$uid] = $query->row_array();
         }
         return $userinfo[$uid];
     }
 
-    
-    
-    
-    
-    
-    
-    
     public function get_all_rule() {
         $this->db->where('status', 1);
         $this->db->order_by('sort desc');
