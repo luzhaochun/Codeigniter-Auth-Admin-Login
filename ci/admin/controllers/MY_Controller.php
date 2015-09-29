@@ -15,14 +15,11 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('user');
-        $this->load->helper('url');
-        $this->load->library('Layout', array('main'));
         if (!$this->user->is_logged_in()) {
             redirect('Login');
         }
+        $this->load->helper('url');
+        $this->load->library('Layout', array('main'));
     }
-    
-    function pagenation(){
-        echo 'test';
-    }
+
 }
