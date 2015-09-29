@@ -248,7 +248,31 @@ class auth_rule extends CI_Model {
         return $query->row_array();
     }
 
-    public function getnerate_menu($rulelist = []){
+    public function getnerate_menu($rulelist = []) {
         
     }
+
+    public function searchParents($allRuleList, $id) {
+        foreach ($allRuleList as $node) {
+            if ($node['id'] == $id) {
+                if ($node['parent_id'] != '0') {
+                    $pid = $node['parent_id'];
+                    $searchPid = $this->searchParents($allRuleList, $node['parent_id']);
+                    $pid = ($searchPid ? $searchPid . ',' : '') . $pid;
+                    return $pid;
+                } else {
+                    return '';
+                }
+            }
+        }
+    }
+    
+    public function get_node_info($name = ''){
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->where('name',$name);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
 }

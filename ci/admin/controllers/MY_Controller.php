@@ -36,7 +36,10 @@ class MY_Controller extends CI_Controller {
             }
         }
         $this->data['menuList'] = $this->auth_rule->buildAllRuleToTree($allRuleList);
-        
+        $nodeInfo = $this->auth_rule->get_node_info($this->router->class . '/' . $this->router->method);
+        //print_r($nodeInfo);
+        $pids = $this->auth_rule->searchParents($allRuleList, $nodeInfo['id']) ? explode(',', $this->auth_rule->searchParents($allRuleList, $nodeInfo['id'])) : array('1','2');
+        //print_r($pids);exit;
     }
 
     public function checkRule($rule, $uid, $type = 1, $mode = 'url') {
