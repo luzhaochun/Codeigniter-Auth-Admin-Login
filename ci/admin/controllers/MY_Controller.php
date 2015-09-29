@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
 
 class MY_Controller extends CI_Controller {
 
-    protected $_data = [];
+    public $data = [];
 
     function __construct() {
         parent::__construct();
@@ -27,6 +27,8 @@ class MY_Controller extends CI_Controller {
                 echo '未授权访问！';exit;
             }
         }
+        //generate left navigation
+        $this->data['list'] = '11';
     }
     
     public function checkRule($rule, $uid, $type=1, $mode='url') {

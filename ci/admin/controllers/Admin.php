@@ -23,9 +23,9 @@ class Admin extends MY_Controller {
     }
     
     public function index(){
-        $data['group'] = $this->auth_group->group_list();
-        $data['userlist'] = $this->user->userList();
-        $this->layout->view('Admin/index',$data);
+        $this->data['group'] = $this->auth_group->group_list();
+        $this->data['userlist'] = $this->user->userList();
+        $this->layout->view('Admin/index',$this->data);
     }
     
     public function add(){
@@ -49,16 +49,16 @@ class Admin extends MY_Controller {
                 $this->db->insert('auth_group_access', $map);
                 redirect('Admin/index');
             } else {
-                $data['msg'] = '新增失败!';
-                $data['status'] = 'error';
+                $this->data['msg'] = '新增失败!';
+                $this->data['status'] = 'error';
             }
         } else {
-            $data['msg'] = '新增失败!';
-            $data['status'] = 'error';
+            $this->data['msg'] = '新增失败!';
+            $this->data['status'] = 'error';
         }
         $this->load->model('auth_group');
-        $data['list'] = $this->auth_group->get_group_list();
-        $this->layout->view('Admin/index', $data);
+        $this->data['list'] = $this->auth_group->get_group_list();
+        $this->layout->view('Admin/index', $this->data);
     }
     
     public function getAdminInfoById(){
@@ -83,16 +83,16 @@ class Admin extends MY_Controller {
                 $this->auth_group_access->updateAccess($this->input->post('id'),$this->input->post('role'));
                 redirect('Admin/index');
             } else {
-                $data['msg'] = '新增失败!';
-                $data['status'] = 'error';
+                $this->data['msg'] = '新增失败!';
+                $this->data['status'] = 'error';
             }
         } else {
-            $data['msg'] = '新增失败!';
-            $data['status'] = 'error';
+            $this->data['msg'] = '新增失败!';
+            $this->data['status'] = 'error';
         }
         $this->load->model('auth_group');
         $data['list'] = $this->auth_group->get_group_list();
-        $this->layout->view('Admin/index', $data);
+        $this->layout->view('Admin/index', $this->data);
     }
     
     

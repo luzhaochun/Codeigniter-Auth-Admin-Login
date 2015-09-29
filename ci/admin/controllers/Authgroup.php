@@ -25,11 +25,13 @@ class Authgroup extends MY_Controller {
     }
 
     public function index() {
+        
         $this->load->model('auth_group');
-        $data['list'] = $this->auth_group->get_group_list();
-        $data['msg'] = '';
-        $data['status'] = '';
-        $this->layout->view('auth/index', $data);
+        $this->data['list'] = $this->auth_group->get_group_list();
+        $this->data['msg'] = '';
+        $this->data['status'] = '';
+        
+        $this->layout->view('auth/index', $this->data);
     }
 
     public function checkRoleNameUnique() {
@@ -45,6 +47,7 @@ class Authgroup extends MY_Controller {
     }
 
     public function addRole() {
+        
         $this->form_validation->set_rules('title', 'Title', 'required');
         if ($this->form_validation->run()) {
             $data['title'] = $this->input->post('title');
@@ -54,16 +57,16 @@ class Authgroup extends MY_Controller {
             if ($result) {
                 redirect('Authgroup/index');
             } else {
-                $data['msg'] = '新增失败!';
-                $data['status'] = 'error';
+                $this->data['msg'] = '新增失败!';
+                $this->data['status'] = 'error';
             }
         } else {
-            $data['msg'] = '新增失败!';
-            $data['status'] = 'error';
+            $this->data['msg'] = '新增失败!';
+            $this->data['status'] = 'error';
         }
         $this->load->model('auth_group');
-        $data['list'] = $this->auth_group->get_group_list();
-        $this->layout->view('auth/index', $data);
+        $this->data['list'] = $this->auth_group->get_group_list();
+        $this->layout->view('auth/index', $this->data);
     }
 
     public function editRole() {
@@ -78,16 +81,16 @@ class Authgroup extends MY_Controller {
             if ($result) {
                 redirect('Authgroup/index');
             } else {
-                $data['msg'] = '更新失败!';
-                $data['status'] = 'error';
+                $this->data['msg'] = '更新失败!';
+                $this->data['status'] = 'error';
             }
         } else {
-            $data['msg'] = '新增失败!';
-            $data['status'] = 'error';
+            $this->data['msg'] = '新增失败!';
+            $this->data['status'] = 'error';
         }
         $this->load->model('auth_group');
-        $data['list'] = $this->auth_group->get_group_list();
-        $this->layout->view('auth/index', $data);
+        $this->data['list'] = $this->auth_group->get_group_list();
+        $this->layout->view('auth/index', $this->data);
     }
 
     public function getRoleInfo() {
@@ -103,8 +106,8 @@ class Authgroup extends MY_Controller {
     public function menuList() {
         //get all menu list
         $list = $this->auth_rule->showTreeRule($this->auth_rule->buildAllRuleToTree($this->auth_rule->get_all_rule(), 0, 0));
-        $data['list'] = $list;
-        $this->layout->view('auth/menuList', $data);
+        $this->data['list'] = $list;
+        $this->layout->view('auth/menuList', $this->data);
     }
 
     public function addMenu() {
