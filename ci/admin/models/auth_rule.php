@@ -27,8 +27,6 @@ class auth_rule extends CI_Model {
         parent::__construct();
         $this->CI = &get_instance();
         $this->config = &get_config();
-//        $this->CI->load->model('user');
-//        print_r($this->CI->user->testing());exit;
         $prefix = $this->CI->db->dbprefix;
         $this->_config['AUTH_GROUP'] = $prefix . $this->_config['AUTH_GROUP'];
         $this->_config['AUTH_RULE'] = $prefix . $this->_config['AUTH_RULE'];
@@ -176,7 +174,7 @@ class auth_rule extends CI_Model {
     }
 
     /**
-     * 获得用户资料,根据自己的情况读取数据库ss
+     * 获得用户资料,根据自己的情况读取数据库
      */
     protected function getUserInfo($uid) {
         static $userinfo = array();
