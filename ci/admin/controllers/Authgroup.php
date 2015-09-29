@@ -16,7 +16,6 @@ class Authgroup extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('auth');
         $this->load->model('auth_group');
         $this->load->model('auth_group_access');
         $this->load->model('auth_rule');

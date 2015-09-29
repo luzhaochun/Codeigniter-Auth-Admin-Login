@@ -20,7 +20,6 @@ class MY_Controller extends CI_Controller {
             redirect('Login');
         }
         $this->load->model('auth_rule');
-        
         $this->load->library('Layout', array('main'));
         //check auth
         if (!in_array(strtolower($this->router->class . '/' . $this->router->method), $this->config->item('not_all_auth_check'))) {
