@@ -31,6 +31,6 @@ class Index extends MY_Controller {
      */
     public function index() {
         //$data['test'] = 'ci模拟layout';        
-        $this->layout->view('index/index');   
+        $this->layout->view('index/index',  $this->data);   
     }
 }

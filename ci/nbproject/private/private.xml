@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/codeigniter/Codeigniter-login-auth-admin/ci/admin/models/auth_rule.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/codeigniter/Codeigniter-login-auth-admin/ci/admin/models/user.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/codeigniter/Codeigniter-login-auth-admin/ci/admin/controllers/Authgroup.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/codeigniter/Codeigniter-login-auth-admin/ci/admin/controllers/MY_Controller.php</file>
+        </group>
     </open-files>
 </project-private>

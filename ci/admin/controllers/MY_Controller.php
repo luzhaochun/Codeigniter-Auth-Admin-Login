@@ -35,10 +35,15 @@ class MY_Controller extends CI_Controller {
                 unset($allRuleList[$k]);
             }
         }
-        $this->data['menuList'] = $this->auth_rule->buildAllRuleToTree($allRuleList);
+//        $this->data['menuList'] = $this->auth_rule->buildAllRuleToTree($allRuleList);
+//        print_r($this->data['menuList']);exit;
+        $this->data['menuList'] = $this->generate_menu($this->auth_rule->buildAllRuleToTree($allRuleList));
+        
+//        echo $this->data['menuList'];
+//        exit;
         $nodeInfo = $this->auth_rule->get_node_info($this->router->class . '/' . $this->router->method);
         //print_r($nodeInfo);
-        $this->data['pids'] = $this->auth_rule->searchParents($allRuleList, $nodeInfo['id']) ? explode(',', $this->auth_rule->searchParents($allRuleList, $nodeInfo['id'])) : array('1','2');
+        $this->data['pids'] = $this->auth_rule->searchParents($allRuleList, $nodeInfo['id']) ? explode(',', $this->auth_rule->searchParents($allRuleList, $nodeInfo['id'])) : array('1', '2');
         //print_r($pids);exit;
     }
 
@@ -50,4 +55,43 @@ class MY_Controller extends CI_Controller {
         return true;
     }
 
+    public function generate_menu($authlist = [], $sub = false, $level = 0) {
+        $numberArray = $this->auth_rule->numberArray();
+        $html = '';
+        if (!$sub) {
+            $html .= 
+                '<li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </li>';
+        }else{
+            $html .= "<ul class=\"nav nav-" . $numberArray[$level] . "-level collapse\">";
+        }
+      
+        foreach ($authlist as $item) {
+            if (!empty($item['display'])) {
+                $html .= "<li><a href=\"" . ((empty($item['displayChild'])) ? site_url($item['name']) : '#') . 
+                    "\"><i class=\"fa " . $item['class'] . "\"></i> " . $item['title'];
+                if (!empty($item['displayChild'])) {
+                    $html .= "<span class=\"fa arrow\"></span>";
+                }
+                $html .= "</a>";
+                if (!empty($item['displayChild'])) {
+                    $html .= $this->generate_menu($item['sub'], true, $item['level'] + 1);
+                }
+                $html .= "</li>";
+            }
+        }
+        if ($sub) {
+            $html .= "</ul>";
+        }
+        return $html ;
+    }
+     
 }

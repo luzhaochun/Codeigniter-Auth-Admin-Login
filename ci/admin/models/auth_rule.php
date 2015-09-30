@@ -206,6 +206,13 @@ class auth_rule extends CI_Model {
         foreach ($newList as $k => $v) {
             $newList[$k]['hasChild'] = count($this->buildAllRuleToTree($allRuleList, $v['id'], $level + 1));
             $newList[$k]['sub'] = $this->buildAllRuleToTree($allRuleList, $v['id'], $level + 1);
+            $i = 0;
+            foreach ($newList[$k]['sub'] as $item) {
+                if($item['display'] == 1){
+                    $i++;
+                }
+            }
+            $newList[$k]['displayChild'] = $i;
         }
         return $newList;
     }
@@ -275,4 +282,8 @@ class auth_rule extends CI_Model {
         return $query->row_array();
     }
 
+    public function numberArray(){
+        //if left navigation has more level,you can fix this array,just control class
+        return [0=>'',1=>'second',2=>'third',3=>'fourth',4=>'fifth'];
+    }
 }
