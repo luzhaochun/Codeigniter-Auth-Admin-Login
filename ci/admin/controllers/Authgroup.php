@@ -104,7 +104,7 @@ class Authgroup extends MY_Controller {
 
     public function menuList() {
         //get all menu list
-        $list = $this->auth_rule->showTreeRule($this->auth_rule->buildAllRuleToTree($this->auth_rule->get_all_rule(), 0, 0));
+        $list = $this->auth_rule->show_tree_rule($this->auth_rule->build_all_rule_to_tree($this->auth_rule->get_all_rule(), 0, 0));
         $this->data['list'] = $list;
         $this->layout->view('auth/menuList', $this->data);
     }
@@ -213,7 +213,7 @@ class Authgroup extends MY_Controller {
             }
         }
         //make list to tree
-        $this->data['list'] = $this->auth_rule->showTreeRule($this->auth_rule->buildAllRuleToTree($list, 0, 0));
+        $this->data['list'] = $this->auth_rule->show_tree_rule($this->auth_rule->build_all_rule_to_tree($list, 0, 0));
         $this->data['id'] = $id;
         $this->load->view('auth/authList', $this->data);
     }

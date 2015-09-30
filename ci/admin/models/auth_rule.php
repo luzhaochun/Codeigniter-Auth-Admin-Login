@@ -50,7 +50,7 @@ class auth_rule extends CI_Model {
 
         if (!$this->_config['AUTH_ON'])
             return true;
-        $authList = $this->getAuthList($uid, $type); //获取用户需要验证的所有有效规则列表
+        $authList = $this->get_auth_list($uid, $type); //获取用户需要验证的所有有效规则列表
         if (is_string($name)) {
             $name = strtolower($name);
             if (strpos($name, ',') !== false) {
@@ -93,7 +93,7 @@ class auth_rule extends CI_Model {
      *                                         array('uid'=>'用户id','group_id'=>'用户组id','title'=>'用户组名称','rules'=>'用户组拥有的规则id,多个,号隔开'),
      *                                         ...)   
      */
-    public function getGroups($uid) {
+    public function get_groups($uid) {
         static $groups = array();
         if (isset($groups[$uid]))
             return $groups[$uid];
@@ -113,7 +113,7 @@ class auth_rule extends CI_Model {
      * @param integer $uid  用户id
      * @param integer $type 
      */
-    protected function getAuthList($uid, $type) {
+    protected function get_auth_list($uid, $type) {
         static $_authList = array(); //保存用户验证通过的权限列表
         $t = implode(',', (array) $type);
         if (isset($_authList[$uid . $t])) {
@@ -124,7 +124,7 @@ class auth_rule extends CI_Model {
         }
 
         //读取用户所属用户组
-        $groups = $this->getGroups($uid);
+        $groups = $this->get_groups($uid);
         $ids = array(); //保存用户所属用户组设置的所有权限规则id
         foreach ($groups as $g) {
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
@@ -152,7 +152,7 @@ class auth_rule extends CI_Model {
         $authList = array();   //
         foreach ($rules as $rule) {
             if (!empty($rule['condition'])) { //根据condition进行验证
-                $user = $this->getUserInfo($uid); //获取用户信息,一维数组
+                $user = $this->get_user_info($uid); //获取用户信息,一维数组
 
                 $command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
                 //dump($command);//debug
@@ -176,7 +176,7 @@ class auth_rule extends CI_Model {
     /**
      * 获得用户资料,根据自己的情况读取数据库
      */
-    protected function getUserInfo($uid) {
+    protected function get_user_info($uid) {
         static $userinfo = array();
         if (!isset($userinfo[$uid])) {
             $this->db->select('*');
@@ -195,7 +195,7 @@ class auth_rule extends CI_Model {
         return $query->result_array();
     }
 
-    public function buildAllRuleToTree($allRuleList, $pid = 0, $level = 0) {
+    public function build_all_rule_to_tree($allRuleList, $pid = 0, $level = 0) {
         $newList = [];
         foreach ($allRuleList as $v) {
             if ($v['parent_id'] == $pid) {
@@ -204,8 +204,8 @@ class auth_rule extends CI_Model {
             }
         }
         foreach ($newList as $k => $v) {
-            $newList[$k]['hasChild'] = count($this->buildAllRuleToTree($allRuleList, $v['id'], $level + 1));
-            $newList[$k]['sub'] = $this->buildAllRuleToTree($allRuleList, $v['id'], $level + 1);
+            $newList[$k]['hasChild'] = count($this->build_all_rule_to_tree($allRuleList, $v['id'], $level + 1));
+            $newList[$k]['sub'] = $this->build_all_rule_to_tree($allRuleList, $v['id'], $level + 1);
             $i = 0;
             foreach ($newList[$k]['sub'] as $item) {
                 if($item['display'] == 1){
@@ -217,18 +217,18 @@ class auth_rule extends CI_Model {
         return $newList;
     }
 
-    public function showTreeRule($treeRuleList) {
+    public function show_tree_rule($treeRuleList) {
         $newList = array();
         foreach ($treeRuleList as $k => $v) {
             $sub = $v['sub'];
             unset($v['sub']);
-            $v['nodeName'] = !empty($v['nodeName']) ? $v['nodeName'] : $this->getPrefixFromLevel($v['level'], (count($treeRuleList) - 1) == $k) . $v['title'];
+            $v['nodeName'] = !empty($v['nodeName']) ? $v['nodeName'] : $this->get_prefix_from_level($v['level'], (count($treeRuleList) - 1) == $k) . $v['title'];
             $newList[] = $v;
             if (!empty($sub)) {
-                $tmpNewList = $this->showTreeRule($sub);
+                $tmpNewList = $this->show_tree_rule($sub);
                 foreach ($tmpNewList as $tmpk => $tmpv) {
                     $tmpv['nodeName'] = $tmpv['nodeName'] ? $tmpv['nodeName'] :
-                            $this->getPrefixFromLevel($tmpv['level'], (count($tmpNewList) - 1) == $tmpk) . $tmpv['name'];
+                            $this->get_prefix_from_level($tmpv['level'], (count($tmpNewList) - 1) == $tmpk) . $tmpv['name'];
                     $newList[] = $tmpv;
                 }
             }
@@ -236,7 +236,7 @@ class auth_rule extends CI_Model {
         return $newList;
     }
 
-    public function getPrefixFromLevel($level, $end = false) {
+    public function get_prefix_from_level($level, $end = false) {
         $prefix = "";
         $num = $level * 6;
         for ($i = 0; $i < $num; $i++) {
@@ -259,12 +259,12 @@ class auth_rule extends CI_Model {
         
     }
 
-    public function searchParents($allRuleList, $id) {
+    public function search_parents($allRuleList, $id) {
         foreach ($allRuleList as $node) {
             if ($node['id'] == $id) {
                 if ($node['parent_id'] != '0') {
                     $pid = $node['parent_id'];
-                    $searchPid = $this->searchParents($allRuleList, $node['parent_id']);
+                    $searchPid = $this->search_parents($allRuleList, $node['parent_id']);
                     $pid = ($searchPid ? $searchPid . ',' : '') . $pid;
                     return $pid;
                 } else {
@@ -282,7 +282,7 @@ class auth_rule extends CI_Model {
         return $query->row_array();
     }
 
-    public function numberArray(){
+    public function number_array(){
         //if left navigation has more level,you can fix this array,just control class
         return [0=>'',1=>'second',2=>'third',3=>'fourth',4=>'fifth'];
     }

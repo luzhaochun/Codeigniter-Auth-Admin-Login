@@ -23,7 +23,7 @@ class MY_Controller extends CI_Controller {
         $this->load->library('Layout', array('main'));
         //check auth
         if (!in_array(strtolower($this->router->class . '/' . $this->router->method), $this->config->item('not_all_auth_check'))) {
-            if (!$this->checkRule(strtolower($this->router->class . '/' . $this->router->method), $this->user->check_login())) {
+            if (!$this->check_rule(strtolower($this->router->class . '/' . $this->router->method), $this->user->check_login())) {
                 echo '未授权访问！';
                 exit;
             }
@@ -31,23 +31,16 @@ class MY_Controller extends CI_Controller {
         //generate left navigation
         $allRuleList = $this->auth_rule->get_all_rule();
         foreach ($allRuleList as $k => $v) {
-            if (!$this->checkRule($v['name'], $this->user->check_login())) {
+            if (!$this->check_rule($v['name'], $this->user->check_login())) {
                 unset($allRuleList[$k]);
             }
         }
-//        $this->data['menuList'] = $this->auth_rule->buildAllRuleToTree($allRuleList);
-//        print_r($this->data['menuList']);exit;
-        $this->data['menuList'] = $this->generate_menu($this->auth_rule->buildAllRuleToTree($allRuleList));
-        
-//        echo $this->data['menuList'];
-//        exit;
+        $this->data['menuList'] = $this->generate_menu($this->auth_rule->build_all_rule_to_tree($allRuleList));
         $nodeInfo = $this->auth_rule->get_node_info($this->router->class . '/' . $this->router->method);
-        //print_r($nodeInfo);
-        $this->data['pids'] = $this->auth_rule->searchParents($allRuleList, $nodeInfo['id']) ? explode(',', $this->auth_rule->searchParents($allRuleList, $nodeInfo['id'])) : array('1', '2');
-        //print_r($pids);exit;
+        $this->data['pids'] = $this->auth_rule->search_parents($allRuleList, $nodeInfo['id']) ? explode(',', $this->auth_rule->search_parents($allRuleList, $nodeInfo['id'])) : array('1', '2');
     }
 
-    public function checkRule($rule, $uid, $type = 1, $mode = 'url') {
+    public function check_rule($rule, $uid, $type = 1, $mode = 'url') {
         static $Auth = null;
         if (!$this->auth_rule->check($rule, $uid, $type, $mode)) {
             return false;
@@ -56,7 +49,7 @@ class MY_Controller extends CI_Controller {
     }
 
     public function generate_menu($authlist = [], $sub = false, $level = 0) {
-        $numberArray = $this->auth_rule->numberArray();
+        $numberArray = $this->auth_rule->number_array();
         $html = '';
         if (!$sub) {
             $html .= 
